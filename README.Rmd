@@ -1,0 +1,40 @@
+---
+title: "Limpieza de Datos"
+author: "Pedro Burgo"
+date: "4 de noviembre de 2017"
+output:
+  
+  pdf_document: default
+---
+ Comprobamos y establecemos directorio de trabajo
+```{r}
+getwd()
+pathToMain <- "/Users/pburgo/Documents/MBD/M3_Actividad_Colaborativa"
+setwd(pathToMain)
+```
+
+Funciones 
+```{r}
+# Función que toma una cadema de fecha en formato YYYYmmdd o mmddYYYY y devuelve otra en formato YYYY-mm-dd
+CustomDateFormatting <- function(x){
+  x <- as.Date(parse_date_time(x, c("mdY", "Ymd")),"%Y-%m-%d",  tz = "UTC")
+  return(format(x, "%Y-%m-%d"))
+}
+
+# Función que toma un número de teléfono sin formato y lo devuelve formateado
+  CustomPhoneFormatting <- function(phone, invalid = NA)
+  {
+    phone <- gsub("(\\d{2})*(\\d{1})*(\\d{3}){1}(\\d{3}){1}(\\d{4}){1}","\\3-\\4-\\5",phone)
+    return(phone)
+  }
+```
+
+Nombre de los directorios en dónde se van a guardar los ficheros originales, el dataset limpio, scripts...
+```{r}
+folderData <- "datos"
+folderScripts <- paste0(folderData, "/","scripts")
+folderRawData <- paste0(folderData, "/","rawData")
+folderCleanData <- paste0(folderData, "/","cleanData")
+
+```
+
