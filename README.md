@@ -1,3 +1,9 @@
+---
+output:
+  html_document: default
+  pdf_document:
+    toc: yes
+---
 rm(list = ls())
 options(warn = 1)
 # Comprobamos y establecemos directorio de trabajo
@@ -147,4 +153,7 @@ dataToClean <- dataToClean[order(dataToClean$created), ]
 # summary(dataToClean) 
 
           
+
+
+
 
