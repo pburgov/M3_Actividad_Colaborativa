@@ -31,12 +31,6 @@ if (!file.exists(folderScripts)) {dir.create(folderScripts)}
 if (!file.exists(folderRawData)) {dir.create(folderRawData)}
 if (!file.exists(folderCleanData)) {dir.create(folderCleanData)}
 
-
-outputFileNameOriginal <- "cleandata"
-# Se obtiene la fecha con formato yyyy-mm-dd_hh-mm-ss
-downloadDateString <- format(Sys.time(),"%Y-%m-%d_%H-%M-%S")
-
-
 #Cargamos las librerías que vamos a usar
 if (!"stringr" %in% installed.packages()) install.packages("stringr", depend = TRUE)
 if (!"stringi" %in% installed.packages()) install.packages("stringi", depend = TRUE)
@@ -55,16 +49,15 @@ library(lubridate)
 fileURL <- "https://raw.githubusercontent.com/rdempsey/dataiku-posts/master/building-data-pipeline-data-science-studio/dss_dirty_data_example.csv"
 
 con <- file(fileURL,"r")
-# dataToClean <- read.csv2(con, sep = ",", colClasses = "character", header = TRUE )
 dataToClean <- read.csv2(con, sep = ",",  header = TRUE )
 close(con)
 
-names(dataToClean)
 
 #Guardamos una copia de los datos originales 
 originalFileName <- paste0(folderRawData,"/dirtydata_",format(Sys.time(),"%Y-%m-%d_%H-%M-%S"),".csv")
 originalFileName
-# write.csv2(as.data.frame(dataToClean), originalFileName)
+write.csv2(as.data.frame(dataToClean), originalFileName)
+
 names(dataToClean)
 newOrder <- c(1:7,15,8:14)
 setcolorder(dataToClean,newOrder)

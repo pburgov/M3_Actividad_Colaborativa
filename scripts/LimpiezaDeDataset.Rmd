@@ -1,0 +1,78 @@
+---
+title: "Limpieza de Datos"
+author: "Pedro Burgo"
+date: "4 de noviembre de 2017"
+output: html_document
+---
+ Comprobamos y establecemos directorio de trabajo
+```{r}
+getwd()
+pathToMain <- "/Users/Casa/Documents/MBD/M3_Actividad_Colaborativa"
+setwd(pathToMain)
+```
+
+Funciones 
+```{r}
+# Función que toma una cadema de fecha en formato YYYYmmdd o mmddYYYY y devuelve otra en formato YYYY-mm-dd
+CustomDateFormatting <- function(x){
+  x <- as.Date(parse_date_time(x, c("mdY", "Ymd")),"%Y-%m-%d",  tz = "UTC")
+  return(format(x, "%Y-%m-%d"))
+}
+
+# Función que toma un número de teléfono sin formato y lo devuelve formateado
+  CustomPhoneFormatting <- function(phone, invalid = NA)
+  {
+    phone <- gsub("(\\d{2})*(\\d{1})*(\\d{3}){1}(\\d{3}){1}(\\d{4}){1}","\\3-\\4-\\5",phone)
+    return(phone)
+  }
+```
+
+Nombre de los directorios en dónde se van a guardar los ficheros originales, el dataset limpio, scripts...
+```{r}
+folderData <- "datos"
+folderScripts <- paste0(folderData, "/","scripts")
+folderRawData <- paste0(folderData, "/","rawData")
+folderCleanData <- paste0(folderData, "/","cleanData")
+
+```
+
+Se crean los directorios necesarios 
+```{r}
+if (!file.exists(folderData)) {dir.create(folderData)}
+if (!file.exists(folderScripts)) {dir.create(folderScripts)}
+if (!file.exists(folderRawData)) {dir.create(folderRawData)}
+if (!file.exists(folderCleanData)) {dir.create(folderCleanData)}
+```
+
+Se cargan las librerias que se van a usar
+```{r}
+if (!"stringr" %in% installed.packages()) install.packages("stringr", depend = TRUE)
+if (!"stringi" %in% installed.packages()) install.packages("stringi", depend = TRUE)
+if (!"tidyr" %in% installed.packages()) install.packages("tidyr", depend = TRUE)
+if (!"dplyr" %in% installed.packages()) install.packages("dplyr", depend = TRUE)
+if (!"data.table" %in% installed.packages()) install.packages("data.table", depend = TRUE)
+if (!"lubridate" %in% installed.packages()) install.packages("lubridate", depend = TRUE)
+library(stringr)
+library(stringi)
+library(tidyr)
+library(dplyr)
+library(data.table)
+library(lubridate)
+```
+
+Establecemos la conexión con los datos 
+```{r}
+fileURL <- "https://raw.githubusercontent.com/rdempsey/dataiku-posts/master/building-data-pipeline-data-science-studio/dss_dirty_data_example.csv"
+
+con <- file(fileURL,"r")
+dataToClean <- read.csv2(con, sep = ",",  header = TRUE )
+close(con)
+```
+
+Guardamos una copia de los datos originales 
+```{r}
+originalFileName <- paste0(folderRawData,"/dirtydata_",format(Sys.time(),"%Y-%m-%d_%H-%M-%S"),".csv")
+originalFileName
+write.csv2(as.data.frame(dataToClean), originalFileName)
+```
+
