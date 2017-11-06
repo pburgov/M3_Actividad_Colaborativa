@@ -1,8 +1,8 @@
 ---
-output:
-  html_document: default
-  pdf_document:
-    toc: yes
+title: "LimpiezaDeDataset.Rmd"
+author: "Pedro Burgo Vázquez"
+date: "06/11/2017"
+output: html_document
 ---
 rm(list = ls())
 options(warn = 1)
