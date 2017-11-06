@@ -1,8 +1,7 @@
-rm(list = ls())
-options(warn = 1)
+
 # Comprobamos y establecemos directorio de trabajo
 getwd()
-pathToMain <- "/Users/pburgo/Documents/MBD/M3_Actividad_Colaborativa"
+pathToMain <- "/Users/Casa/Documents/MBD/M3_Actividad_Colaborativa"
 setwd(pathToMain)
 
 # Función que toma una cadema de fecha en formato YYYYmmdd o mmddYYYY
@@ -38,12 +37,15 @@ if (!"tidyr" %in% installed.packages()) install.packages("tidyr", depend = TRUE)
 if (!"dplyr" %in% installed.packages()) install.packages("dplyr", depend = TRUE)
 if (!"data.table" %in% installed.packages()) install.packages("data.table", depend = TRUE)
 if (!"lubridate" %in% installed.packages()) install.packages("lubridate", depend = TRUE)
+if (!"knitr" %in% installed.packages()) install.packages("knitr", depend = TRUE)
 library(stringr)
 library(stringi)
 library(tidyr)
-library(dplyr)
-library(data.table)
-library(lubridate)
+library(dplyr, warn.conflicts = FALSE)
+library(data.table,warn.conflicts = FALSE)
+library(lubridate, warn.conflicts = FALSE)
+library(knitr)
+
 
 #Establecemos la conexión con la fuente de datos y la descargamos
 fileURL <- "https://raw.githubusercontent.com/rdempsey/dataiku-posts/master/building-data-pipeline-data-science-studio/dss_dirty_data_example.csv"
@@ -53,29 +55,31 @@ dataToClean <- read.csv2(con, sep = ",",  header = TRUE )
 close(con)
 
 
-#Guardamos una copia de los datos originales 
+# Guardamos una copia de los datos originales 
 originalFileName <- paste0(folderRawData,"/dirtydata_",format(Sys.time(),"%Y-%m-%d_%H-%M-%S"),".csv")
 originalFileName
 write.csv2(as.data.frame(dataToClean), originalFileName)
 
-names(dataToClean)
+# Reordenamos y renombramos las columnas 
 newOrder <- c(1:7,15,8:14)
 setcolorder(dataToClean,newOrder)
-names(dataToClean)
-names(dataToClean) <- c("name","address","city","state","zip","phone","email","created", "work","work.address","work.city",
-                         "work.state","work.zipcode","work.phone","work.email")
+names(dataToClean) <- c("name","address","city","state","zip","phone","email",
+                        "created", "work","work.address","work.city",
+                        "work.state","work.zipcode","work.phone","work.email")
+
+kable(head(dataToClean))
+# Nos quedamos únicamente con las 8 primeras columnas.
+# Los datos relativos al trabajo (work) los obviamos porque sería realizar las mismas operaciones 
+dataToClean <- dataToClean[ ,1:8]
 
 
-# Nos quedamos únicamente con las 8 primeras columnas. Los datos relativos al trabajo (work) los obviamos
-dataToClean <- dataToClean[1:1000 ,1:8]
-
-
-# Separamos la columna name en name (nombre) y surname (apellidos). Primero removemos los espacios a los lados
+# Separamos la columna name en name (nombre) y surname (apellidos)
+# Primero removemos los espacios a los lados
 dataToClean$name <- stri_trim_both(dataToClean$name) 
 dataToClean <- dataToClean %>% separate("name",  c("name", "surname"), " " , remove = TRUE)
 
 # Separamos la columna addres en addres (dirección) y flat (piso).
-# Si se usase la dirección para una geolocalización inversa el numero de apartamento o Suite no parecen relevantes.
+# Si se usase la dirección para una geolocalización inversa, el numero de apartamento o Suite no parecen relevantes.
 # Como no aparecen en todos los registros los separamos para homogeneizar la columna address.
 # Primero removemos los espacios a los lados y usamos la regex addressPattern
 dataToClean$address <- stri_trim_both(dataToClean$address) 
@@ -104,6 +108,7 @@ dataToClean$created <- gsub(datePatttern,dateReplacement,dataToClean$created)
 # Aplicamos la función CustomDateFormatting a la columna created
 dataToClean$created <- sapply(dataToClean$created, CustomDateFormatting)
 dataToClean$created <- as.Date(dataToClean$created)
+kable(head(dataToClean))
 
 # Separamos la columna phone en phone (que llevará el número de teléfono) y ext (que llevará la extensión).
 # No todos los registros presentan la extensión, por lo que vamos a prescindir de ella.
@@ -118,8 +123,7 @@ dataToClean$phone <-  gsub(phonePatttern,dateReplacement,dataToClean$phone)
 
 # Aplicamos la función CustomPhoneFormatting a la columna phone
 dataToClean$phone <- sapply(dataToClean$phone, CustomPhoneFormatting)
-
-
+kable(head(dataToClean))
 
 # Finalmente nos vamos a quedar únicamente con las columnas name, surname,address, city, state, zip, phone, email y created
 newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)
@@ -137,7 +141,7 @@ dim(dataToClean)
 
 # Ordenamos el dataset por el campo created en sentido ascendente
 dataToClean <- dataToClean[order(dataToClean$created), ]
-# summary(dataToClean) 
+summary(dataToClean) 
 
           
 

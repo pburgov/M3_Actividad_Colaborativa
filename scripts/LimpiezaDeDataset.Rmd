@@ -4,22 +4,29 @@ author: "Pedro Burgo"
 date: "4 de noviembre de 2017"
 output: html_document
 ---
- Comprobamos y establecemos directorio de trabajo
-```{r}
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Comprobamos y establecemos directorio de trabajo
+```{r enviroment}
 getwd()
 pathToMain <- "/Users/Casa/Documents/MBD/M3_Actividad_Colaborativa"
 setwd(pathToMain)
 ```
 
-Funciones 
-```{r}
-# Función que toma una cadema de fecha en formato YYYYmmdd o mmddYYYY y devuelve otra en formato YYYY-mm-dd
+### Funciones 
+Función que toma una cadema de fecha en formato YYYYmmdd o mmddYYYY y devuelve otra en formato YYYY-mm-dd
+```{r customdate}
 CustomDateFormatting <- function(x){
   x <- as.Date(parse_date_time(x, c("mdY", "Ymd")),"%Y-%m-%d",  tz = "UTC")
   return(format(x, "%Y-%m-%d"))
 }
-
-# Función que toma un número de teléfono sin formato y lo devuelve formateado
+```
+Función que toma un número de teléfono sin formato y lo devuelve formateado
+```{r customphone}
   CustomPhoneFormatting <- function(phone, invalid = NA)
   {
     phone <- gsub("(\\d{2})*(\\d{1})*(\\d{3}){1}(\\d{3}){1}(\\d{4}){1}","\\3-\\4-\\5",phone)
@@ -27,6 +34,7 @@ CustomDateFormatting <- function(x){
   }
 ```
 
+### Directorios y librerias
 Nombre de los directorios en dónde se van a guardar los ficheros originales, el dataset limpio, scripts...
 ```{r}
 folderData <- "datos"
@@ -52,14 +60,17 @@ if (!"tidyr" %in% installed.packages()) install.packages("tidyr", depend = TRUE)
 if (!"dplyr" %in% installed.packages()) install.packages("dplyr", depend = TRUE)
 if (!"data.table" %in% installed.packages()) install.packages("data.table", depend = TRUE)
 if (!"lubridate" %in% installed.packages()) install.packages("lubridate", depend = TRUE)
+if (!"knitr" %in% installed.packages()) install.packages("knitr", depend = TRUE)
 library(stringr)
 library(stringi)
 library(tidyr)
-library(dplyr)
-library(data.table)
-library(lubridate)
+library(dplyr, warn.conflicts = FALSE)
+library(data.table,warn.conflicts = FALSE)
+library(lubridate, warn.conflicts = FALSE)
+library(knitr)
 ```
 
+### Carga del dataset original
 Establecemos la conexión con los datos 
 ```{r}
 fileURL <- "https://raw.githubusercontent.com/rdempsey/dataiku-posts/master/building-data-pipeline-data-science-studio/dss_dirty_data_example.csv"
@@ -74,5 +85,97 @@ Guardamos una copia de los datos originales
 originalFileName <- paste0(folderRawData,"/dirtydata_",format(Sys.time(),"%Y-%m-%d_%H-%M-%S"),".csv")
 originalFileName
 write.csv2(as.data.frame(dataToClean), originalFileName)
+```
+### Transformación previa
+Reordenamos y renombramos las columnas 
+```{r}
+newOrder <- c(1:7,15,8:14)
+setcolorder(dataToClean,newOrder)
+names(dataToClean) <- c("name","address","city","state","zip","phone","email",
+                        "created", "work","work.address","work.city",
+                        "work.state","work.zipcode","work.phone","work.email")
+kable(head(dataToClean))
+```
+
+Nos quedamos únicamente con las 8 primeras columnas. Los datos relativos al trabajo (work) los obviamos.
+Para mostrar la ejecución de determinadas acciones de limpieza, no es necesario realizarlas en todoas las columnas
+```{r}
+dataToClean <- dataToClean[ ,1:8]
+```
+
+### Columna name 
+Separamos la columna name en name (nombre) y surname (apellidos).
+Primero removemos los espacios a los lados
+
+```{r}
+dataToClean$name <- stri_trim_both(dataToClean$name) 
+dataToClean <- dataToClean %>% separate("name",  c("name", "surname"), " " , remove = TRUE)
+kable(head(dataToClean))
+```
+
+###  Columna addres
+Separamos la columna addres en addres (dirección) y flat (piso).
+Si se usase la dirección para una geolocalización inversa, el numero de apartamento o Suite no parecen relevantes.
+Como no aparecen en todos los registros los separamos para homogeneizar la columna address.
+Primero removemos los espacios a los lados y usamos la regex addressPattern
+```{r}
+dataToClean$address <- stri_trim_both(dataToClean$address) 
+addresPattern <- "(?=((Apt\\.))|(Suite))"
+dataToClean <- dataToClean %>% separate(address, c("address", "flat"), addresPattern, remove = TRUE)
+```
+
+### Columna created
+Separamos la columna created en created (que llevará la fecha) y created.hour (que llevará el detalle de la hora).
+No todos los registros presentan la hora, por lo que vamos a prescindir de ella. Además a priori viendo los datos
+no parece que sea algo importante para conservar.
+Primero removemos los espacios a los lados.
+```{r}
+dataToClean$created <- stri_trim_both(dataToClean$created) 
+dataToClean <- dataToClean %>% separate("created", c("created", "created.hour"), " ", remove = TRUE)
+```
+
+Las fechas se encuentran en dos formatos distintos mm/dd/yyyy y yyyy-mm-dd
+Para homogeneizar los datos primero vamos a eliminar los '-' y los '/' quedándonos los formatos
+mmddyyyy e yyyymmdd. Usamos una regex reemplazando las ocurrencias con ''
+También se habría podido usar la regex
+
+datePatttern <- "([0-9]+)-([0-9]+)-([0-9]+)|([0-9]+)\\/([0-9]+)\\/([0-9]+)"
+
+Usando como reemplazo los grupos encontrados
+
+dateReplacement <- "\\1\\2\\3\\4\\5\\6"
+```{r}
+datePatttern <- "([-]+)|([/]+)"
+dateReplacement <- ""
+dataToClean$created <- gsub(datePatttern,dateReplacement,dataToClean$created)
+```
+
+Aplicamos la función CustomDateFormatting a la columna created
+```{r}
+dataToClean$created <- sapply(dataToClean$created, CustomDateFormatting)
+dataToClean$created <- as.Date(dataToClean$created)
+kable(head(dataToClean))
+```
+
+### Columna phone
+Separamos la columna phone en phone (que llevará el número de teléfono) y ext (que llevará la extensión).
+No todos los registros presentan la extensión, por lo que vamos a prescindir de ella.
+Primero removemos los espacios a los lados.
+```{r}
+dataToClean$phone <- stri_trim_both(dataToClean$phone) 
+dataToClean <- dataToClean %>% separate("phone", c("phone", "ext"), "x", remove = TRUE)
+```
+
+Los teléfonos se encuentran en distintos formatos 
+Para homogeneizar los datos primero vamos a eliminar todo lo que no sea un dígito
+```{r}
+phonePatttern <- "([^0-9]+)"
+dataToClean$phone <-  gsub(phonePatttern,dateReplacement,dataToClean$phone)
+```
+
+Aplicamos la función CustomPhoneFormatting a la columna phone
+```{r}
+dataToClean$phone <- sapply(dataToClean$phone, CustomPhoneFormatting)
+kable(head(dataToClean))
 ```
 
