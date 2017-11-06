@@ -4,6 +4,21 @@ author: "Pedro Burgo Vázquez"
 date: "06/11/2017"
 output: html_document
 ---
+SCRIPT: LimpiezaDeDataset.Rmd
+
+AUTHOR: Pedro Burgo Vázquez
+
+DATE: 06/11/2017
+
+OUTPUT: dataAnalysisPractice.md, dataAnalysisPractice.html files plus figures directory with the images 
+
+PURPOSE: Report answering some questions about portuguese and maths student data
+
+DATA SOURCE: https://archive.ics.uci.edu/ml/machine-learning-databases/00320/student.zip
+
+INPUT DATA: student-por.csv, student-mat.csv
+
+LIMITATIONS:
 rm(list = ls())
 options(warn = 1)
 # Comprobamos y establecemos directorio de trabajo
