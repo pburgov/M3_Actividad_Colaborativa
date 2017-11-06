@@ -10,13 +10,13 @@ AUTHOR: Pedro Burgo Vázquez
 
 DATE: 06/11/2017
 
-OUTPUT: dataAnalysisPractice.md, dataAnalysisPractice.html files plus figures directory with the images 
+OUTPUT: cleanData_yyyy-mm-dd_hh-mm.ss.csv
 
-PURPOSE: Report answering some questions about portuguese and maths student data
+PURPOSE: Limpieza de un dataset para poder con posterioridad
 
-DATA SOURCE: https://archive.ics.uci.edu/ml/machine-learning-databases/00320/student.zip
+DATA SOURCE: https://raw.githubusercontent.com/rdempsey/dataiku-posts/master/building-data-pipeline-data-science-studio/dss_dirty_data_example.csv
 
-INPUT DATA: student-por.csv, student-mat.csv
+INPUT DATA: dss_dirty_data_example.csv
 
 LIMITATIONS:
 rm(list = ls())
