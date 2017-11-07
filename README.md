@@ -1,8 +1,7 @@
 ---
 output:
+  pdf_document:default
   html_document: default
-  pdf_document:
-    toc: yes
 ---
 rm(list = ls())
 options(warn = 1)
