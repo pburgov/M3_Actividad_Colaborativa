@@ -29,7 +29,7 @@ Las acciones que se van a realizar principalmente son:
              Además <i>a priori</i>, analizando los datos, no parece que la hora de creación de la cuenta que sea algo importante para conservar. Para ello usamos el método                   <code>separate</code>
         </li>
         <li>
-            Las fechas se encuentran en dos formatos distintos <i>mm/dd/yyyy</i> y <i>yyyy-mm-dd<i>. Para homogeneizar los datos primero vamos a eliminar los '-' y los '/'             obteniendo los formatos mmddyyyy e yyyymmdd. Usamos una regex reemplazando las ocurrencias con ''.
+            Las fechas se encuentran en dos formatos distintos <i>mm/dd/yyyy</i> y <i>yyyy-mm-dd</i>. Para homogeneizar los datos primero vamos a eliminar los '-' y los '/'             obteniendo los formatos mmddyyyy e yyyymmdd. Usamos una regex reemplazando las ocurrencias con ''.
             Usamos la <i>regex</i> siguiente <code>([-]+)|([/]+)</code>
             Se podría haber usado también la expresión <code>([0-9]+)-([0-9]+)-([0-9]+)|([0-9]+)\\/([0-9]+)\\/([0-9]+)</code> y como reemplazo los grupos encontrados                   <code>\\1\\2\\3\\4\\5\\6</code>. Usamos el método <code>gsub</code>
         </li>
