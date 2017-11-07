@@ -39,7 +39,20 @@ Las acciones que se van a realizar principalmente son:
         </li>
       </ol>
   </li>
-  
+  <li>Procesado de la columna <code>phone</code> : 
+      <ol>
+        <li> Algunos de los registros presentan la la extensión telefónica. Se elimina esta parte en aquellos que los contienen y nos quedamos con la fecha.
+             Además <i>a priori</i>, analizando los datos, no parece que la hora de creación de la cuenta que sea algo importante para conservar. Para ello usamos el método                   <code>separate</code>
+        </li>
+        <li>
+
+        </li>
+        <li>
+
+        </li>
+      </ol>   
+   
+  </li>
 </ul>  
 
 
