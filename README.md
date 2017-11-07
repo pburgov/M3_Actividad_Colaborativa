@@ -63,9 +63,9 @@ Las acciones que se van a realizar principalmente son:
   <li>
       Reordenamos las columnas y nos quedamos con un <i>subset</i> que comprende a las columnas <code>name, surname,address, city, state, zip, phone, email y created</code>.
       <pre><code>
-      newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)
-      setcolorder(dataToClean,newOrder)
-      dataToClean <- dataToClean[ ,1:8]</code></pre>
+  newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)
+  setcolorder(dataToClean,newOrder)
+  dataToClean <- dataToClean[ ,1:8]</code></pre>
 
       
   </li>
@@ -75,12 +75,12 @@ Las acciones que se van a realizar principalmente son:
         <li>
             Por un lado nos quedamos con los registros que carecen de <code>NA</code>.
       <pre><code>
-      dataToClean <- dataToClean[complete.cases(dataToClean),]</code></pre>            
+  dataToClean <- dataToClean[complete.cases(dataToClean),]</code></pre>            
          </li>
         <li>
             A mayores vamos a filtrar a aquellos registros que en los campos <code>phone</code> y <code>email</code> tiene cadena vacía.No son <code>NA</code> pero sí                 están vacios.
       <pre><code>
-      dataToClean <- dataToClean[!(dataToClean$phone == "" | dataToClean$email == ""), ]</code></pre>                
+  dataToClean <- dataToClean[!(dataToClean$phone == "" | dataToClean$email == ""), ]</code></pre>                
         </li>
       </ol>              
   </li>
@@ -90,7 +90,7 @@ Las acciones que se van a realizar principalmente son:
         <li>
            Ordenamos el <i>dataset</i> por el campo <code>created</code> en sentido ascendent
       <pre><code>
-      dataToClean <- dataToClean[order(dataToClean$created), ]</code></pre>           
+  dataToClean <- dataToClean[order(dataToClean$created), ]</code></pre>           
         </li>
         <li>
             Guardamos el archivo <code>*.csv</code> de los datos procesados
