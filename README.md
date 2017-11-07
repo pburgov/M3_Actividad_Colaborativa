@@ -71,13 +71,11 @@ Las acciones que se van a realizar principalmente son:
       Eliminación de registros no válidos
       <ol>
         <li>
-            Por un lado nos quedamos con los registros que carecen de <code>NA</code>
+            Por un lado nos quedamos con los registros que carecen de <code>NA</code>.
             
-            ```
-            newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)
+            ```newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)
             setcolorder(dataToClean,newOrder)
             dataToClean <- dataToClean[ ,1:8]
-            
             ```
         </li>
         <li>
