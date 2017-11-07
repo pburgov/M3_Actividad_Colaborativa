@@ -1,3 +1,6 @@
+---
+output: html_document
+---
 
 SCRIPT: LimpiezaDeDataset.Rmd
 
@@ -13,7 +16,7 @@ DATA SOURCE: https://raw.githubusercontent.com/rdempsey/dataiku-posts/master/bui
 
 INPUT DATA: dss_dirty_data_example.csv
 
-### Descripción Breve
+### Descripción de la Práctica
 
 El dataset seleccionado es parte de un proyecto de <a href="https://github.com/rdempsey/dataiku-posts/blob/master/building-data-pipeline-data-science-studio/" > Robert Dempsey </a> para el que crea un <i>fake dataset</i> para proceder a limpiarlo
 El dataset contiene datos de personas, direcciones, teléfonos y <i>e-mails</i> particulares y de trabajo, así como una fecha de alta de la cuenta. Podría asimilarse a un registro cualquiera en muchas de las <i>web</i> a las que estamos acostumbrados a visitar. 
@@ -56,13 +59,11 @@ Las acciones que se van a realizar principalmente son:
   </li>
   <li>
       Reordenamos las columnas y nos quedamos con un <i>subset</i> que comprende a las columnas <code>name, surname,address, city, state, zip, phone, email y created</code>
-      
-      ```{r}
-      newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)
-      setcolorder(dataToClean,newOrder)
-      dataToClean <- dataToClean[ ,1:8]
-      ```
-
+      <code>newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)</code>
+      <code>setcolorder(dataToClean,newOrder)</code>
+      <code>dataToClean <- dataToClean[ ,1:8]</code>
+ 
+    
   </li>
 </ul>
 
