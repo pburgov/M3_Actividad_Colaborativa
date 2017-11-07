@@ -68,6 +68,7 @@ Las acciones que se van a realizar principalmente son:
       newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)
       setcolorder(dataToClean,newOrder)
       dataToClean <- dataToClean[ ,1:8]
+      
 ```      
 
   </li>
@@ -79,6 +80,7 @@ Las acciones que se van a realizar principalmente son:
             
 ```{r  echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
       dataToClean <- dataToClean[complete.cases(dataToClean),]
+      
 ```     
             
         </li>
@@ -87,6 +89,7 @@ Las acciones que se van a realizar principalmente son:
             
 ```{r echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
       dataToClean <- dataToClean[!(dataToClean$phone == "" | dataToClean$email == ""), ]
+      
 ```                 
         </li>
       </ol>  
