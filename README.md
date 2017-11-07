@@ -98,11 +98,11 @@ Las acciones que se van a realizar principalmente son:
         </li>
         <li>
             Guardamos el archivo <code>*.csv</code> de los datos procesados
-      <pre><code>
+      <code>
       outputFileName <- paste0(folderCleanData,"/cleandata_",format(Sys.time(),"%Y-%m-%d_%H-%M-%S"),".csv")
       outputFileName
       write.csv2(as.data.frame(dataToClean), outputFileName)
-      </code></pre>
+      </code>
         </li>
       </ol>
   </li>
