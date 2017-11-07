@@ -61,7 +61,7 @@ Las acciones que se van a realizar principalmente son:
       </ol>
   </li>
   <li>
-      Reordenamos las columnas y nos quedamos con un <i>subset</i> que comprende a las columnas <code>name, surname,address, city, state, zip, phone, email y created</code></br>
+      Reordenamos las columnas y nos quedamos con un <i>subset</i> que comprende a las columnas <code>name, surname,address, city, state, zip, phone, email y created</code>.
       
       
  
