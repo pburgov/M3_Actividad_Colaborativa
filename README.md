@@ -1,4 +1,7 @@
 ---
+title: "LimpiezaDeDataset.Rmd"
+author: "Pedro Burgo Vázquez"
+date: "06/11/2017"
 output: html_document
 ---
 
@@ -60,11 +63,11 @@ Las acciones que se van a realizar principalmente son:
   <li>
       Reordenamos las columnas y nos quedamos con un <i>subset</i> que comprende a las columnas <code>name, surname,address, city, state, zip, phone, email y created</code>
       
-      ```{r versioninfo, echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
+```{r versioninfo, echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
       newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)
       setcolorder(dataToClean,newOrder)
       dataToClean <- dataToClean[ ,1:8]
-      ```      
+```      
 
   </li>
   <li>
