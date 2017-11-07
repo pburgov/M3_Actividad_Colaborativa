@@ -1,9 +1,13 @@
 
 ---
 title: "LimpiezaDeDataset.Rmd"
-author: "Pedro Burgo VÁzquez"
+author: "Pedro Burgo Vazquez"
 date: "06/11/2017"
-output: html_document
+output: 
+  html_document: 
+    highlight: tango
+    theme: cerulean
+    toc: yes
 ---
 SCRIPT: LimpiezaDeDataset.Rmd
 
