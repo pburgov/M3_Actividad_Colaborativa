@@ -63,11 +63,7 @@ Las acciones que se van a realizar principalmente son:
   <li>
       Reordenamos las columnas y nos quedamos con un <i>subset</i> que comprende a las columnas <code>name, surname,address, city, state, zip, phone, email y created</code>.
       
-``` {r redorder, echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
-newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)
-setcolorder(dataToClean,newOrder)
-dataToClean <- dataToClean[ ,1:8]
-```          
+
       
   </li>
   <li>
@@ -76,16 +72,9 @@ dataToClean <- dataToClean[ ,1:8]
         <li>
             Por un lado nos quedamos con los registros que carecen de <code>NA</code>.
             
-``` {r nonNa, echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
-dataToClean <- dataToClean[complete.cases(dataToClean),]
-```            
          </li>
         <li>
             A mayores vamos a filtrar a aquellos registros que en los campos <code>phone</code> y <code>email</code> tiene cadena vacía.No son <code>NA</code> pero sí                 están vacios.
-            
-``` {r empty, echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
-dataToClean <- dataToClean[!(dataToClean$phone == "" | dataToClean$email == ""), ]
-```                 
             
         </li>
       </ol>              
@@ -96,21 +85,17 @@ dataToClean <- dataToClean[!(dataToClean$phone == "" | dataToClean$email == ""),
         <li>
            Ordenamos el <i>dataset</i> por el campo <code>created</code> en sentido ascendente
            
-``` {r empty, echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
-dataToClean <- dataToClean[order(dataToClean$created), ]
-```               
+      
            
         </li>
-            Guardamos el archivo <code>*.csv</code> de los datos procesados
-            
-``` {r empty, echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
-outputFileName <- paste0(folderCleanData,"/cleandata_",format(Sys.time(),"%Y-%m-%d_%H-%M-%S"),".csv")
-outputFileName
-write.csv2(as.data.frame(dataToClean), outputFileName)
-```              
-            
+
         <li>
-        
+            Guardamos el archivo <code>*.csv</code> de los datos procesados
+            <pre><code>
+            outputFileName <- paste0(folderCleanData,"/cleandata_",format(Sys.time(),"%Y-%m-%d_%H-%M-%S"),".csv")
+            outputFileName
+            write.csv2(as.data.frame(dataToClean), outputFileName)
+            </code></pre>
         </li>
       </ol>
   </li>
