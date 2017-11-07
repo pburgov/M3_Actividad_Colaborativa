@@ -81,7 +81,7 @@ Las acciones que se van a realizar principalmente son:
 ```{r  echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
       dataToClean <- dataToClean[complete.cases(dataToClean),]
       
-```     
+```     </li>
             
         </li>
         <li>
