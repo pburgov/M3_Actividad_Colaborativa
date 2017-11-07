@@ -61,9 +61,9 @@ Las acciones que se van a realizar principalmente son:
       </ol>
   </li>
   <li>
-      Reordenamos las columnas y nos quedamos con un <i>subset</i> que comprende a las columnas <code>name, surname,address, city, state, zip, phone, email y created</code>
+      Reordenamos las columnas y nos quedamos con un <i>subset</i> que comprende a las columnas <code>name, surname,address, city, state, zip, phone, email y created</code></br>
       
-      
+  
 ```{r versioninfo, echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
       newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)
       setcolorder(dataToClean,newOrder)
@@ -86,6 +86,7 @@ Las acciones que se van a realizar principalmente son:
             A mayores vamos a filtrar a aquellos registros que en los campos <code>phone</code> y <code>email</code> tiene cadena vacía. No son <code>NA</code> pero sí                 están vacios.
             
         </li>
+      </ol>  
   </li>
   
 </ul>
