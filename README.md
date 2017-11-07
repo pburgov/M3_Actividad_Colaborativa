@@ -75,9 +75,15 @@ Las acciones que se van a realizar principalmente son:
       <ol>
         <li>
             Por un lado nos quedamos con los registros que carecen de <code>NA</code>.
+      <pre><code>
+      dataToClean <- dataToClean[complete.cases(dataToClean),]
+      </code></pre>            
          </li>
         <li>
             A mayores vamos a filtrar a aquellos registros que en los campos <code>phone</code> y <code>email</code> tiene cadena vacía.No son <code>NA</code> pero sí                 están vacios.
+      <pre><code>
+      dataToClean <- dataToClean[!(dataToClean$phone == "" | dataToClean$email == ""), ]
+      </code></pre>                
         </li>
       </ol>              
   </li>
