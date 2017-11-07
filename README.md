@@ -29,14 +29,13 @@ Las acciones que se van a realizar principalmente son:
 <ul style="list-style-type:disc">
   <li>El desdoblamiento de la columna <code>name</code> en  <code>name</code> y  <code>surname</code>  </li>
   <li>El desdoblamiento de la columna <code>address</code> en <code>addres</code> (dirección) y <code>flat</code> (piso). Algunos de los registros, no todos, detallan también además de la dirección,  el piso en el que vive la persona registrada. Se denota con <b>apartamento</b> (<i>Apt.</i>) o <b>suite</b> (<i>Suite</i>). Para homogueneizar las direcciones y considerando que para un uso posterior del dataset limpio, el piso no se considera un detalle relevante se elimina. Para ello usamos el método <code>separate</code> y la <i>regex</i> siguiente <code>(?=((Apt\\.))|(Suite))</code> </li>
-  <li>Procesado de la columna <code>created</code>: 
-  
-      <style="list-style-type:disc">
+  <li>Procesado de la columna <code>created</code> : 
+      <ol>
         <li> Algunos de los registros presentan la parte de horas, minutos y segundos. Se elimina estar parte en aquellos que los contienen y nos quedamos con la fecha.
             Para ello usamos el método <code>separate</code>
         </li>
         <li></li>
-      </ul>
+      </ol>
   </li>
   
 </ul>  
