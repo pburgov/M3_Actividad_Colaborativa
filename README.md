@@ -80,7 +80,10 @@ Las acciones que se van a realizar principalmente son:
             
             ```
         </li>
-                  
+        <li>
+            A mayores vamos a filtrar a aquellos registros que en los campos <code>phone</code> y <code>email</code> tiene cadena vacía.No son <code>NA</code> pero sí están             vacios.
+        </li>
+      </ol>              
         
   </li>
   
