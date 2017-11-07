@@ -72,11 +72,11 @@ Las acciones que se van a realizar principalmente son:
       <ol>
         <li>
             Por un lado nos quedamos con los registros que carecen de <code>NA</code>.
-            
-            ```newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)
-            setcolorder(dataToClean,newOrder)
-            dataToClean <- dataToClean[ ,1:8]
-            ```
+``` r
+No language indicated, so no syntax highlighting. 
+But let's throw in a <b>tag</b>.
+```            
+ 
         </li>
         <li>
             A mayores vamos a filtrar a aquellos registros que en los campos <code>phone</code> y <code>email</code> tiene cadena vacía.No son <code>NA</code> pero sí están             vacios.
