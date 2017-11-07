@@ -2,11 +2,12 @@
 title: "Limpieza de Datos"
 author: "Pedro Burgo"
 date: "06 de noviembre de 2017"
-output: 
-  html_document: 
+output:
+  html_document:
     highlight: tango
     theme: cerulean
     toc: yes
+
 ---
 
 <style type="text/css">
@@ -107,7 +108,7 @@ kable(head(dataToClean))
 Nos quedamos únicamente con las 8 primeras columnas. Las columnas relativas a los datos del trabajo (work) las obviamos.
 Las acciones a tomar en columnas como <code>address</code> o <code>phone</code> se repetirán en <code>work.address</code> y <code>work.phone</code>
 ```{r}
-dataToClean <- dataToClean[1:20 ,1:8]
+dataToClean <- dataToClean[ ,1:8]
 ```
 
 ### Columna name 
