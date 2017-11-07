@@ -4,7 +4,6 @@ author: "Pedro Burgo"
 date: "06 de noviembre de 2017"
 output: 
   html_document: 
-    df_print: paged
     highlight: tango
     theme: cerulean
     toc: yes
