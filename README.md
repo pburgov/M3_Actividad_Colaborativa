@@ -62,7 +62,11 @@ Las acciones que se van a realizar principalmente son:
   </li>
   <li>
       Reordenamos las columnas y nos quedamos con un <i>subset</i> que comprende a las columnas <code>name, surname,address, city, state, zip, phone, email y created</code>.
-      
+``` {r redorder, echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
+newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)
+setcolorder(dataToClean,newOrder)
+dataToClean <- dataToClean[ ,1:8]
+```          
       
  
 
@@ -72,7 +76,7 @@ Las acciones que se van a realizar principalmente son:
       <ol>
         <li>
             Por un lado nos quedamos con los registros que carecen de <code>NA</code>.
-``` r
+``` {r nonNa, echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
 No language indicated, so no syntax highlighting. 
 But let's throw in a <b>tag</b>.
 ```            
