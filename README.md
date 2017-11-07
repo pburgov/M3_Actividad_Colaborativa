@@ -59,6 +59,9 @@ Las acciones que se van a realizar principalmente son:
   </li>
   <li>
       Reordenamos las columnas y nos quedamos con un <i>subset</i> que comprende a las columnas <code>name, surname,address, city, state, zip, phone, email y created</code>
+      <br>
+      <br>
+      newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)
   </li>
   <li>
       Eliminación de registros no válidos
