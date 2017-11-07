@@ -1,8 +1,30 @@
 ---
+<<<<<<< HEAD
 output:
   pdf_document:default
   html_document: default
+=======
+title: "LimpiezaDeDataset.Rmd"
+author: "Pedro Burgo Vázquez"
+date: "06/11/2017"
+output: html_document
+>>>>>>> 7ec0228d18926d43de46183118043b347424b231
 ---
+SCRIPT: LimpiezaDeDataset.Rmd
+
+AUTHOR: Pedro Burgo Vázquez
+
+DATE: 06/11/2017
+
+OUTPUT: cleanData_yyyy-mm-dd_hh-mm.ss.csv
+
+PURPOSE: Limpieza de un dataset para poder con posterioridad
+
+DATA SOURCE: https://raw.githubusercontent.com/rdempsey/dataiku-posts/master/building-data-pipeline-data-science-studio/dss_dirty_data_example.csv
+
+INPUT DATA: dss_dirty_data_example.csv
+
+LIMITATIONS:
 rm(list = ls())
 options(warn = 1)
 # Comprobamos y establecemos directorio de trabajo
