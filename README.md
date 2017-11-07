@@ -62,7 +62,11 @@ Las acciones que se van a realizar principalmente son:
   </li>
   <li>
       Reordenamos las columnas y nos quedamos con un <i>subset</i> que comprende a las columnas <code>name, surname,address, city, state, zip, phone, email y created</code>.
-      
+      <pre><code>
+      newOrder <- c(1:3,5:6,8,10:11,4,7,9,12)
+      setcolorder(dataToClean,newOrder)
+      dataToClean <- dataToClean[ ,1:8]
+      </code></pre>
 
       
   </li>
@@ -82,14 +86,17 @@ Las acciones que se van a realizar principalmente son:
       <ol>
         <li>
            Ordenamos el <i>dataset</i> por el campo <code>created</code> en sentido ascendent
+      <pre><code>
+      dataToClean <- dataToClean[order(dataToClean$created), ]
+      </code></pre>           
         </li>
         <li>
             Guardamos el archivo <code>*.csv</code> de los datos procesados
-            <pre><code>
-            outputFileName <- paste0(folderCleanData,"/cleandata_",format(Sys.time(),"%Y-%m-%d_%H-%M-%S"),".csv")
-            outputFileName
-            write.csv2(as.data.frame(dataToClean), outputFileName)
-            </code></pre>
+      <pre><code>
+      outputFileName <- paste0(folderCleanData,"/cleandata_",format(Sys.time(),"%Y-%m-%d_%H-%M-%S"),".csv")
+      outputFileName
+      write.csv2(as.data.frame(dataToClean), outputFileName)
+      </code></pre>
         </li>
       </ol>
   </li>
