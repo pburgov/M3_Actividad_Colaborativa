@@ -71,11 +71,9 @@ Las acciones que se van a realizar principalmente son:
       <ol>
         <li>
             Por un lado nos quedamos con los registros que carecen de <code>NA</code>.
-            
          </li>
         <li>
             A mayores vamos a filtrar a aquellos registros que en los campos <code>phone</code> y <code>email</code> tiene cadena vacía.No son <code>NA</code> pero sí                 están vacios.
-            
         </li>
       </ol>              
   </li>
@@ -83,12 +81,8 @@ Las acciones que se van a realizar principalmente son:
       Procesado final y guardado
       <ol>
         <li>
-           Ordenamos el <i>dataset</i> por el campo <code>created</code> en sentido ascendente
-           
-      
-           
+           Ordenamos el <i>dataset</i> por el campo <code>created</code> en sentido ascendent
         </li>
-
         <li>
             Guardamos el archivo <code>*.csv</code> de los datos procesados
             <pre><code>
