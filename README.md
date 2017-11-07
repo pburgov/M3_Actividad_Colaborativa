@@ -69,25 +69,50 @@ setcolorder(dataToClean,newOrder)
 dataToClean <- dataToClean[ ,1:8]
 ```          
       
- 
-
   </li>
   <li>
       Eliminación de registros no válidos
       <ol>
         <li>
             Por un lado nos quedamos con los registros que carecen de <code>NA</code>.
+            
 ``` {r nonNa, echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
-No language indicated, so no syntax highlighting. 
-But let's throw in a <b>tag</b>.
+dataToClean <- dataToClean[complete.cases(dataToClean),]
 ```            
- 
-        </li>
+         </li>
         <li>
-            A mayores vamos a filtrar a aquellos registros que en los campos <code>phone</code> y <code>email</code> tiene cadena vacía.No son <code>NA</code> pero sí están             vacios.
+            A mayores vamos a filtrar a aquellos registros que en los campos <code>phone</code> y <code>email</code> tiene cadena vacía.No son <code>NA</code> pero sí                 están vacios.
+            
+``` {r empty, echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
+dataToClean <- dataToClean[!(dataToClean$phone == "" | dataToClean$email == ""), ]
+```                 
+            
         </li>
       </ol>              
+  </li>
+  <li>
+      Procesado final y guardado
+      <ol>
+        <li>
+           Ordenamos el <i>dataset</i> por el campo <code>created</code> en sentido ascendente
+           
+``` {r empty, echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
+dataToClean <- dataToClean[order(dataToClean$created), ]
+```               
+           
+        </li>
+            Guardamos el archivo <code>*.csv</code> de los datos procesados
+            
+``` {r empty, echo=TRUE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
+outputFileName <- paste0(folderCleanData,"/cleandata_",format(Sys.time(),"%Y-%m-%d_%H-%M-%S"),".csv")
+outputFileName
+write.csv2(as.data.frame(dataToClean), outputFileName)
+```              
+            
+        <li>
         
+        </li>
+      </ol>
   </li>
   
 </ul>
