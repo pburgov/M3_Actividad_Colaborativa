@@ -1,10 +1,4 @@
 
----
-title: "LimpiezaDeDataset.Rmd"
-author: "Pedro Burgo Vazquez"
-date: "06/11/2017"
-output: html_document
----
 SCRIPT: LimpiezaDeDataset.Rmd
 
 AUTHOR: Pedro Burgo Vázquez
@@ -32,9 +26,17 @@ Las acciones que se van a realizar principalmente son:
   <li>Procesado de la columna <code>created</code> : 
       <ol>
         <li> Algunos de los registros presentan la parte de horas, minutos y segundos. Se elimina esta parte en aquellos que los contienen y nos quedamos con la fecha.
-             Además <i>a priori</i> viendo los datos no parece que la hora de creación de la cuenta que sea algo importante para conservar. Para ello usamos el método                   <code>separate</code>
+             Además <i>a priori</i>, analizando los datos, no parece que la hora de creación de la cuenta que sea algo importante para conservar. Para ello usamos el método                   <code>separate</code>
         </li>
-        <li></li>
+        <li>
+            Las fechas se encuentran en dos formatos distintos <i>mm/dd/yyyy</i> y <i>yyyy-mm-dd<i>. Para homogeneizar los datos primero vamos a eliminar los '-' y los '/'             obteniendo los formatos mmddyyyy e yyyymmdd. Usamos una regex reemplazando las ocurrencias con ''.
+            Usamos la <i>regex</i> siguiente <code>([-]+)|([/]+)</code>
+            Se podría haber usado también la expresión <code>([0-9]+)-([0-9]+)-([0-9]+)|([0-9]+)\\/([0-9]+)\\/([0-9]+)</code> y como reemplazo los grupos encontrados                   <code>\\1\\2\\3\\4\\5\\6</code>. Usamos el método <code>gsub</code>
+        </li>
+        <li>
+            Una vez tenemos las fechas en formato  mmddyyyy o yyyymmdd, aplicamos a la columna la función personalizada <code>CustomDateFormatting</code> que nos devuelve 
+            la fecha en formato yyyy-mm-dd. Homogeneizando así la columna. La aplicamos con el método <code>sapply</code>.
+        </li>
       </ol>
   </li>
   
