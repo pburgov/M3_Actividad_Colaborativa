@@ -95,9 +95,9 @@ Las acciones que se van a realizar principalmente son:
         <li>
             Guardamos el archivo <code>*.csv</code> de los datos procesados
       <pre><code>
-      outputFileName <- paste0(folderCleanData,"/cleandata_",format(Sys.time(),"%Y-%m-%d_%H-%M-%S"),".csv")
-      outputFileName
-      write.csv2(as.data.frame(dataToClean), outputFileName)</code></pre>
+  outputFileName <- paste0(folderCleanData,"/cleandata_",format(Sys.time(),"%Y-%m-%d_%H-%M-%S"),".csv")
+  outputFileName
+  write.csv2(as.data.frame(dataToClean), outputFileName)</code></pre>
         </li>
       </ol>
   </li>
